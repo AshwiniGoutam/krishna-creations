@@ -22,7 +22,7 @@ const SingleItem = ({ item, removeItemFromCart }) => {
             <a href="#"> {item.name} </a>
           </h3>
           <p className="text-custom-sm">
-            Price: ${item.price}, Size: {item.size}
+            Price: ₹{item.price}, Size: {item.size}
           </p>
         </div>
       </div>
