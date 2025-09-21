@@ -21,14 +21,18 @@ interface RevenueStats {
   cashRevenue: number;
 }
 
+
 interface Order {
-  [x: string]: ReactNode;
-  phone: ReactNode;
-  createdAt: string | number | Date;
-  streetAddress: ReactNode;
+  _id: string;
   name: ReactNode;
-  _id: Key;
-  products: any;
+  phone: ReactNode;
+  streetAddress: ReactNode;
+  createdAt: string | number | Date;
+  products: {
+    name: string;
+    price: number;
+    quantity: number;
+  }[];
   id: string;
   category: string;
   merchant: {
@@ -47,7 +51,9 @@ interface Order {
   };
   route: string;
   status: "pending" | "shipping" | "delivered" | "returned" | "canceled";
+  pincode?: string;
 }
+
 
 const revenueData = [
   { name: "Online", value: 74, color: "#8b5cf6" },
@@ -156,29 +162,6 @@ export default function Page() {
 
   const toggleRow = (id) => {
     setExpandedRow(expandedRow === id ? null : id);
-  };
-
-  const markAsComplete = async (id: string) => {
-    // console.log("Updating order ID:", id);
-    // return;
-    try {
-      const res = await fetch(`/api/checkout/${id}/complete`, {
-        method: "PATCH",
-      });
-      const data = await res.json();
-
-      if (!res.ok) {
-        alert(data.error || "Failed to complete order");
-      } else {
-        setOrders((prev) =>
-          prev.map((o) => (o._id === id ? { ...o, status: "delivered" } : o))
-        );
-        alert("Order marked as complete ✅");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong");
-    }
   };
 
   return (
