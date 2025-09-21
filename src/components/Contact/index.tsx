@@ -33,7 +33,7 @@ const Contact = () => {
                         fill="#3C50E0"
                       />
                     </svg>
-                    Name: James Septimus
+                    Name: Shankar Sharma
                   </p>
 
                   <p className="flex items-center gap-4">
@@ -61,7 +61,7 @@ const Contact = () => {
                         fill="#3C50E0"
                       />
                     </svg>
-                    Phone: 1234 567890
+                    Phone: +91 90248 31336
                   </p>
 
                   <p className="flex gap-4">
@@ -80,7 +80,7 @@ const Contact = () => {
                         fill="#3C50E0"
                       />
                     </svg>
-                    Address: 7398 Smoke Ranch RoadLas Vegas, Nevada 89128
+                    Address: G2 , Parth sarthi apartment, 149 Rajendra path, 21 South, Niwaru road Jhotwara Jaipur Rajasthan 302012
                   </p>
                 </div>
               </div>

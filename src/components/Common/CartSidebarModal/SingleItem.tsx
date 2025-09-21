@@ -7,7 +7,7 @@ const SingleItem = ({ item, removeItemFromCart }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleRemoveFromCart = () => {
-    dispatch(removeItemFromCart(item.id));
+    dispatch(removeItemFromCart(item._id));
   };
 
   return (
@@ -22,7 +22,7 @@ const SingleItem = ({ item, removeItemFromCart }) => {
             <a href="#"> {item.name} </a>
           </h3>
           <p className="text-custom-sm">
-            Price: ₹{item.price}, Size: {item.size}
+            Price: ₹{item.price}, Size: {item.size}, Quantity: {item?.quantity}
           </p>
         </div>
       </div>

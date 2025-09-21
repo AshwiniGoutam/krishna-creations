@@ -3,6 +3,7 @@ import React, { ChangeEvent } from "react";
 interface BillingData {
   name: string;
   streetAddress: string;
+  pincode: string;
   phone: string;
   email: string;
 }
@@ -60,6 +61,24 @@ const Billing: React.FC<BillingProps> = ({
           />
           {errors?.streetAddress && (
             <p className="text-red mt-2 text-sm">{errors.streetAddress}</p>
+          )}
+        </div>
+
+        <div className="mb-5">
+          <label htmlFor="streetAddress" className="block mb-2.5">
+            Pincode <span className="text-red">*</span>
+          </label>
+          <input
+            type="text"
+            name="pincode"
+            id="pincode"
+            placeholder="Enter your pincode"
+            value={billingData.pincode}
+            onChange={handleChange}
+            className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+          />
+          {errors?.pincode && (
+            <p className="text-red mt-2 text-sm">{errors.pincode}</p>
           )}
         </div>
 

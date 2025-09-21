@@ -27,7 +27,10 @@ export const cart = createSlice({
     addItemToCart: (state, action: PayloadAction<CartItem>) => {
       const { _id, name, description, price, quantity, mrp, image_url, size } =
         action.payload;
-      const existingItem = state.items.find((item) => item._id === _id);
+
+      const existingItem = state.items.find(
+        (item) => item._id === _id && item.size === size
+      );
 
       if (existingItem) {
         existingItem.quantity += quantity;
@@ -44,25 +47,28 @@ export const cart = createSlice({
         });
       }
     },
+
     removeItemFromCart: (state, action: PayloadAction<string>) => {
-      const itemId = action.payload;
-      state.items = state.items.filter((item) => item._id !== itemId);
+      state.items = state.items.filter((item) => item._id !== action.payload);
     },
 
     updateCartItemQuantity: (
       state,
-      action: PayloadAction<{ _id: string; quantity: number }>
+      action: PayloadAction<{ _id: string; size?: string; quantity: number }>
     ) => {
-      const { _id, quantity } = action.payload;
-      const existingItem = state.items.find((item) => item._id === _id);
-
-      if (existingItem) {
-        existingItem.quantity = quantity;
-      }
+      const { _id, size, quantity } = action.payload;
+      const existingItem = state.items.find(
+        (item) => item._id === _id && item.size === size
+      );
+      if (existingItem) existingItem.quantity = quantity;
     },
 
     removeAllItemsFromCart: (state) => {
       state.items = [];
+    },
+
+    loadCartFromStorage: (state, action: PayloadAction<CartItem[]>) => {
+      state.items = action.payload;
     },
   },
 });

@@ -14,7 +14,7 @@ const SingleItem = ({ item }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleRemoveFromCart = () => {
-    dispatch(removeItemFromCart(item.id));
+    dispatch(removeItemFromCart(item._id));
   };
 
   const handleIncreaseQuantity = () => {
@@ -42,7 +42,7 @@ const SingleItem = ({ item }) => {
 
             <div>
               <h3 className="text-dark ease-out duration-200 hover:text-blue">
-                <a href="#"> {item.name} </a>
+                <a href="#"> {item.name} ({item?.size})</a>
               </h3>
             </div>
           </div>

@@ -3,11 +3,12 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import Breadcrumb from "../Common/Breadcrumb";
 import Billing from "./Billing";
 import { useAppSelector } from "@/redux/store";
-import { selectTotalPrice } from "@/redux/features/cart-slice";
+import { cart, selectTotalPrice } from "@/redux/features/cart-slice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 interface CartItem {
+  [x: string]: any;
   image_url: any;
   id: string;
   name: string;
@@ -20,8 +21,10 @@ interface CartItem {
 interface BillingData {
   name: string;
   streetAddress: string;
+  pincode: string;
   phone: string;
   email: string;
+  id: number;
 }
 
 interface OrderResponse {
@@ -34,13 +37,18 @@ const Checkout: React.FC = () => {
   const cartItems = useAppSelector(
     (state) => state.cartReducer.items
   ) as unknown as CartItem[];
+
+  // console.log("ashwin", cartItems);
+
   const totalPrice = useAppSelector(selectTotalPrice);
 
   const [billingData, setBillingData] = useState<BillingData>({
     name: "",
     streetAddress: "",
+    pincode: "",
     phone: "",
     email: "",
+    id: null,
   });
 
   const [successOrder, setSuccessOrder] = useState<OrderResponse | null>(null);
@@ -93,6 +101,7 @@ const Checkout: React.FC = () => {
       size: item.size,
       img_url: item.image_url,
       totalPrice: item.price * item.quantity,
+      id: item?._id,
     }));
 
     const orderTotal = products.reduce((sum, p) => sum + p.totalPrice, 0);
@@ -176,7 +185,9 @@ const Checkout: React.FC = () => {
                         className="flex items-center justify-between py-5 border-b border-gray-3"
                         key={index}
                       >
-                        <p className="text-dark">{item.name}</p>
+                        <p className="text-dark">
+                          {item.name} ({item?.size})
+                        </p>
                         <p className="text-dark text-right">
                           ₹ {item.price * item.quantity}
                         </p>
